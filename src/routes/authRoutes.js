@@ -1,6 +1,8 @@
 import { Router } from "express";
-import { createUser } from "../controllers/authController.js";
-
+import { createUser, login } from "../controllers/authController.js";
+import { validateCreateUser } from "../middlewares/validateCreateUser.js";
+import { validateLoginUser } from "../middlewares/validateLoginUser.js";
 export const authRouter = Router();
 
-authRouter.get("/signup", createUser);
+authRouter.post("/signup", validateCreateUser, createUser);
+authRouter.post("/signin", validateLoginUser, login);
