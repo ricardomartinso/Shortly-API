@@ -63,7 +63,7 @@ export async function openShortUrl(req, res) {
 
 export async function deleteShortUrl(req, res) {
   const { id } = req.params;
-  const { accessToken } = req.email;
+  const { accessToken: email } = req.email;
 
   const { rows: linkToDelete } = await connection.query(
     `SELECT * FROM "linksUser" WHERE id = $1`,
@@ -73,7 +73,7 @@ export async function deleteShortUrl(req, res) {
 
   const { rows: user } = await connection.query(
     `SELECT * FROM users WHERE email = $1`,
-    [accessToken]
+    [email]
   );
 
   if (user[0].id !== linkToDelete[0].userId) res.sendStatus(401);
