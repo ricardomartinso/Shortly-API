@@ -1,5 +1,8 @@
 import { connection } from "../databases/postgres.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 export async function createUser(req, res) {
   const user = req.body;
@@ -18,10 +21,12 @@ export async function createUser(req, res) {
   }
 }
 export async function login(req, res) {
-  const userLogin = req.body;
+  const email = req.body.email;
 
   try {
-    res.sendStatus(200);
+    const token = jwt.sign({ accessToken: email }, process.env.ACCESS_TOKEN);
+
+    res.status(200).send(token);
   } catch (error) {
     console.log(error);
     res.sendStatus(500);
