@@ -13,7 +13,7 @@ export async function createShortUrl(req, res) {
       [id, longUrl, shortenedUrl, 0]
     );
 
-    res.status(201).send(shortenedUrl);
+    res.status(201).send({ shortUrl: shortenedUrl });
   } catch (error) {
     console.log(error);
     res.sendStatus(500);

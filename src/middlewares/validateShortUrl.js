@@ -22,7 +22,7 @@ export async function validateShortUrl(req, res, next) {
     [url, user[0].id]
   );
 
-  if (isLinkEqual.length > 0) return res.status(403).send("Url já encurtado");
+  if (isLinkEqual.length > 0) return res.status(422).send("Url já encurtado");
 
   try {
     req.id = user[0].id;
