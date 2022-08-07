@@ -1,0 +1,185 @@
+--
+-- PostgreSQL database dump
+--
+
+-- Dumped from database version 14.4 (Ubuntu 14.4-0ubuntu0.22.04.1)
+-- Dumped by pg_dump version 14.4 (Ubuntu 14.4-0ubuntu0.22.04.1)
+
+SET statement_timeout = 0;
+SET lock_timeout = 0;
+SET idle_in_transaction_session_timeout = 0;
+SET client_encoding = 'UTF8';
+SET standard_conforming_strings = on;
+SELECT pg_catalog.set_config('search_path', '', false);
+SET check_function_bodies = false;
+SET xmloption = content;
+SET client_min_messages = warning;
+SET row_security = off;
+
+SET default_tablespace = '';
+
+SET default_table_access_method = heap;
+
+--
+-- Name: linksUser; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public."linksUser" (
+    id integer NOT NULL,
+    "userId" integer NOT NULL,
+    url text NOT NULL,
+    "shortUrl" text NOT NULL,
+    "visitCount" integer NOT NULL,
+    "createdAt" date DEFAULT now()
+);
+
+
+ALTER TABLE public."linksUser" OWNER TO postgres;
+
+--
+-- Name: linksUser_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public."linksUser_id_seq"
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public."linksUser_id_seq" OWNER TO postgres;
+
+--
+-- Name: linksUser_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public."linksUser_id_seq" OWNED BY public."linksUser".id;
+
+
+--
+-- Name: users; Type: TABLE; Schema: public; Owner: postgres
+--
+
+CREATE TABLE public.users (
+    id integer NOT NULL,
+    name text NOT NULL,
+    email text NOT NULL,
+    password text NOT NULL,
+    "createdAt" date DEFAULT now()
+);
+
+
+ALTER TABLE public.users OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE public.users_id_seq
+    AS integer
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.users_id_seq OWNER TO postgres;
+
+--
+-- Name: users_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE public.users_id_seq OWNED BY public.users.id;
+
+
+--
+-- Name: linksUser id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."linksUser" ALTER COLUMN id SET DEFAULT nextval('public."linksUser_id_seq"'::regclass);
+
+
+--
+-- Name: users id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users ALTER COLUMN id SET DEFAULT nextval('public.users_id_seq'::regclass);
+
+
+--
+-- Data for Name: linksUser; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public."linksUser" (id, "userId", url, "shortUrl", "visitCount", "createdAt") FROM stdin;
+6	3	http://www.driven.com.br	TxjRUEtN	8	2022-08-04
+8	3	http://www.barbie.com.br	pm2-s7wx	0	2022-08-04
+9	3	http://www.xuxa.com.br	BiDofydg	0	2022-08-04
+10	3	http://www.faustao.com.br	SfhSaRDs	0	2022-08-04
+7	3	http://www.google.com.br	FDU2T7_z	5	2022-08-04
+\.
+
+
+--
+-- Data for Name: users; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY public.users (id, name, email, password, "createdAt") FROM stdin;
+2	ricardo	r@r.com	$2b$10$YDDqWk7eUOchIRP07uBBve.zqUoi3PyWHR4nEaxrll8GPeXF0j1nK	2022-08-03
+3	ricardo	r2@r.com	$2b$10$duO7UL6zcfw9TyaExl1GmuG2F0q5FeRpwNv7pslwi/WVlG7AoWT1e	2022-08-03
+4	Carol	c@c.com	$2b$10$VSoRTys3jqRJ2bdOmTjA2OXmz6Dd48IrXLIvq4ZPbQiqjSTjkaLry	2022-08-04
+\.
+
+
+--
+-- Name: linksUser_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."linksUser_id_seq"', 10, true);
+
+
+--
+-- Name: users_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public.users_id_seq', 4, true);
+
+
+--
+-- Name: linksUser linksUser_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."linksUser"
+    ADD CONSTRAINT "linksUser_pkey" PRIMARY KEY (id);
+
+
+--
+-- Name: users users_email_key; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_email_key UNIQUE (email);
+
+
+--
+-- Name: users users_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public.users
+    ADD CONSTRAINT users_pkey PRIMARY KEY (id);
+
+
+--
+-- Name: linksUser linksUser_userId_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY public."linksUser"
+    ADD CONSTRAINT "linksUser_userId_fkey" FOREIGN KEY ("userId") REFERENCES public.users(id);
+
+
+--
+-- PostgreSQL database dump complete
+--
+
