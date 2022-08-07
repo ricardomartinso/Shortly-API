@@ -1,5 +1,4 @@
 import { connection } from "../databases/postgres.js";
-
 export async function getUserInfos(req, res) {
   const { accessToken: email } = req.email;
 
